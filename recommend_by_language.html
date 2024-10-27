@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation - By Language</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .book-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .book-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+        .book-item:last-child {
+            border-bottom: none;
+        }
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .book-image {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .buy-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .buy-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Recommendations by Language</h1>
+        <div class="book-list" id="book-list">
+            <!-- Book recommendations will be inserted here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Extract language from URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var language = urlParams.get('language');
+
+        // Perform recommendation based on language
+        var recommendations = [];
+        switch (language.toLowerCase()) {
+            case "telugu":
+                recommendations = [
+                    {
+                        title: "మూడాది దీపములు",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/41-mQFJHTVL._SX329_BO1,204,203,200_.jpg",
+                        link: "https://www.amazon.in/dp/B07NQ8L2F7"
+                    },
+                    {
+                        title: "నిర్మల నిలయం",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/51Ir9kmiUtL._SX310_BO1,204,203,200_.jpg",
+                        link: "https://www.amazon.in/dp/B08PY3P5ZR"
+                    }
+                ];
+                break;
+            case "hindi":
+                recommendations = [
+                    {
+                        title: "मुट्ठी भर बर्फ",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/51rdjKxuTZL._SX311_BO1,204,203,200_.jpg",
+                        link: "https://www.amazon.in/dp/B0876J54RV"
+                    },
+                    {
+                        title: "मजबूर",
+                        cover: "https://m.media-amazon.com/images/I/71d2V8YR+9L._SY466_.jpg",
+                        link: "https://www.amazon.in/-/hi/Moin-Khan-ebook/dp/B082812VLZ"
+                    }
+                ];
+                break;
+            case "marathi":
+                recommendations = [
+                    {
+                        title: "एका तिची व्यथा",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/51O-1t7U9fL._SX330_BO1,204,203,200_.jpg",
+                        link: "https://www.amazon.in/dp/B07XNGG3HD"
+                    },
+                    {
+                        title: "व्यक्ती आणि वल्ली",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/41qd6CJYkDL._SX318_BO1,204,203,200_.jpg",
+                        link: "https://www.amazon.in/dp/B078YWK2SS"
+                    }
+                ];
+                break;
+            case "gujarati":
+                recommendations = [
+                    {
+                        title: "ગુણસૂરી એક સાધુ",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/71EtrnJa6qL.jpg",
+                        link: "https://www.amazon.in/dp/B07YX5TP7G"
+                    },
+                    {
+                        title: "મને આંધળા જીવ્યાં",
+                        cover: "https://images-na.ssl-images-amazon.com/images/I/51gz7Ubu4jL._SX311_BO1,204,203,200_.jpg",
+                        link: "https://www.amazon.in/dp/B07PY8HJW4"
+                    }
+                ];
+                break;
+            default:
+                recommendations = ["No recommendations available for this language."];
+        }
+
+        // Display recommendations
+        var bookListElement = document.getElementById("book-list");
+        recommendations.forEach(function(book) {
+            var bookItem = document.createElement("div");
+            bookItem.classList.add("book-item");
+
+            var titleElement = document.createElement("p");
+            titleElement.classList.add("book-title");
+            titleElement.textContent = book.title;
+            bookItem.appendChild(titleElement);
+
+            var coverElement = document.createElement("img");
+            coverElement.classList.add("book-image");
+            coverElement.src = book.cover;
+            bookItem.appendChild(coverElement);
+
+            var buyLink = document.createElement("a");
+            buyLink.classList.add("buy-link");
+            buyLink.href = book.link;
+            buyLink.textContent = "Buy";
+            buyLink.target = "_blank";
+            bookItem.appendChild(buyLink);
+
+            bookListElement.appendChild(bookItem);
+        });
+    </script>
+</body>
+</html>
+
+
+

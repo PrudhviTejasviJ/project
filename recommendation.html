@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation - Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+        }
+        .book-image {
+            margin-top: 20px;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .button-group {
+            margin-top: 20px;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Recommendation</h1>
+        <p id="result">Loading...</p>
+        <img src="" alt="Book Cover" id="book-image" class="book-image">
+        <div class="button-group">
+            <button onclick="buyBook()">Buy the Book</button>
+            <button onclick="findNearbyLibraries()">Find Nearby Libraries</button>
+            <button onclick="recommendByLanguage()">Recommend by Language</button>
+        </div>
+    </div>
+
+    <script>
+        // Extract mood from URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var mood = urlParams.get('mood');
+
+        // Perform recommendation based on mood
+        var recommendation = "";
+        var bookImage = "";
+        var bookLink = "";
+        switch (mood) {
+            case "happy":
+                recommendation = "The Alchemist by Paulo Coelho";
+                bookImage = "https://images.penguinrandomhouse.com/cover/9780061122415";
+                bookLink = "https://www.amazon.com/Alchemist-Paulo-Coelho/dp/0061122416";
+                break;
+            case "sad":
+                recommendation = "The Kite Runner by Khaled Hosseini";
+                bookImage = "https://images.penguinrandomhouse.com/cover/9781573222457";
+                bookLink = "https://www.amazon.com/Kite-Runner-Khaled-Hosseini/dp/1573222453";
+                break;
+            case "excited":
+                recommendation = "The Hunger Games by Suzanne Collins";
+                bookImage = "https://images.penguinrandomhouse.com/cover/9780439023481";
+                bookLink = "https://www.amazon.com/Hunger-Games-Suzanne-Collins/dp/0439023483";
+                break;
+            case "relaxed":
+                recommendation = "The Little Prince by Antoine de Saint-Exupéry";
+                bookImage = "https://images.penguinrandomhouse.com/cover/9780547978842";
+                bookLink = "https://www.amazon.com/Little-Prince-Antoine-Saint-Exupéry/dp/0547978847";
+                break;
+            default:
+                recommendation = "No recommendation available for this mood.";
+        }
+
+        // Display recommendation
+        document.getElementById("result").innerText = "Based on your mood, we recommend: " + recommendation;
+        document.getElementById("book-image").src = bookImage;
+
+        function buyBook() {
+            window.location.href = bookLink;
+        }
+
+        function findNearbyLibraries() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var mapsUrl = "https://www.google.com/maps/search/libraries/@" + latitude + "," + longitude + ",15z";
+                    window.open(mapsUrl, '_blank');
+                }, function(error) {
+                    console.log("Error getting location:", error);
+                    alert("Could not get your location. Please make sure you allow location access.");
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        }
+
+        function recommendByLanguage() {
+            var language = prompt("Enter the language of books you want to read:", "");
+            if (language) {
+                window.location.href = "recommend_by_language.html?language=" + language;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
